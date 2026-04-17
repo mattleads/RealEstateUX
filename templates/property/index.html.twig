@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Property Listings{% endblock %}
+
+{% block body %}
+    <div class="flex justify-between items-center mb-8">
+        <h1 class="text-3xl font-extrabold text-gray-900">Featured Listings</h1>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {# Sample data for demonstration #}
+        {{ component('PropertyCard', {
+            title: 'Modern Mansion',
+            price: 2500000,
+            status: 'active',
+            imageUrl: 'https://placehold.co/800x450/e2e8f0/475569?text=Modern+Mansion'
+        }) }}
+
+        {{ component('PropertyCard', {
+            title: 'Cozy Condo',
+            price: 450000,
+            status: 'sold',
+            imageUrl: 'https://placehold.co/800x450/e2e8f0/475569?text=Cozy+Condo'
+        }) }}
+
+        {{ component('PropertyCard', {
+            title: 'Downtown Loft',
+            price: 850000,
+            status: 'pending',
+            imageUrl: 'https://placehold.co/800x450/e2e8f0/475569?text=Downtown+Loft'
+        }) }}
+
+        {% for property in properties %}
+            {{ component('PropertyCard', {
+                id: property.id,
+                title: property.title,
+                price: property.price ?? 0, 
+                status: 'active',
+                imageUrl: property.imageUrl
+            }) }}
+        {% endfor %}
+    </div>
+{% endblock %}

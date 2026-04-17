@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create New Listing{% endblock %}
+
+{% block body %}
+    <div class="max-w-3xl mx-auto bg-white p-8 rounded-xl shadow-lg">
+        <h1 class="text-4xl font-bold mb-8">
+            List your next 
+            <span 
+                data-controller="typing" 
+                data-typing-strings-value='["Mansion", "Cozy Condo", "Downtown Loft", "Beachfront Villa"]'
+                data-typing-speed-value="75"
+                class="text-blue-600"
+            ></span>
+        </h1>
+
+        {{ include('property/_form.html.twig', {'button_label': 'Publish Listing'}) }}
+    </div>
+{% endblock %}

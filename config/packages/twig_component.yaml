@@ -1,0 +1,5 @@
+twig_component:
+    anonymous_template_directory: 'components/'
+    defaults:
+        # We namespace our components under 'App\Twig\Components\'
+        App\Twig\Components\: 'components/'

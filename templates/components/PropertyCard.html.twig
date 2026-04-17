@@ -1,0 +1,37 @@
+{# We use html_cva from twig/html-extra:^3.12 #}
+{% set card_classes = html_cva({
+    base: 'rounded-xl shadow-lg overflow-hidden transition-transform hover:scale-105',
+    variants: {
+        status: {
+            active: 'bg-white border-2 border-green-500',
+            sold: 'bg-gray-100 border-2 border-gray-400 opacity-75',
+            pending: 'bg-yellow-50 border-2 border-yellow-500'
+        }
+    }
+}) %}
+
+<div {{ attributes.defaults({ class: card_classes.apply({ status: this.status }) }) }}>
+    {% if this.imageUrl %}
+        <img src="{{ this.imageUrl }}" alt="{{ this.title }}" loading="lazy" class="w-full h-48 object-cover">
+    {% endif %}
+    
+    <div class="p-6">
+        <h3 class="text-xl font-bold text-gray-900">{{ this.title }}</h3>
+        <p class="mt-2 text-2xl font-extrabold text-blue-600">${{ this.price|number_format }}</p>
+        
+        {% if this.id %}
+            <div class="mt-4 flex justify-between items-center border-t pt-4">
+                <div class="space-x-4">
+                    <a href="{{ path('app_property_edit', {id: this.id}) }}" class="text-blue-600 hover:text-blue-800 font-medium text-sm">✏️ Edit</a>
+                    {% if this.imageUrl %}
+                        <a href="{{ path('app_property_crop', {id: this.id}) }}" class="text-green-600 hover:text-green-800 font-medium text-sm">✂️ Crop</a>
+                    {% endif %}
+                </div>
+                <form method="post" action="{{ path('app_property_delete', {id: this.id}) }}" onsubmit="return confirm('Are you sure you want to delete this property?');">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ this.id) }}">
+                    <button type="submit" class="text-red-600 hover:text-red-800 font-medium text-sm">🗑️ Delete</button>
+                </form>
+            </div>
+        {% endif %}
+    </div>
+</div>
